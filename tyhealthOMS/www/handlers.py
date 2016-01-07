@@ -111,31 +111,31 @@ def salesHome ():
         '__template__':'salesHome.html',
     }
 
-@get('/sales/Customors')
+@get('/sales/customors')
 def salesCustomors ():
     return{
         '__template__':'salesCustomors.html',
     }
 
-@get('/sales/Messages')
+@get('/sales/messages')
 def salesMessages ():
     return{
         '__template__':'salesMessages.html',
     }
 
-@get('/sales/Orders')
+@get('/sales/orders')
 def salesOrders ():
     return{
         '__template__':'salesOrders.html',
     }
 
-@get('/sales/Packages')
+@get('/sales/packages')
 def salesPackages ():
     return{
         '__template__':'salesPackages.html',
     }
 
-@get('/sales/Products')
+@get('/sales/products')
 def salesProducts ():
     return{
         '__template__':'salesProducts.html',
