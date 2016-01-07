@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Meta, title, CSS, favicons, etc. -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+      {% block meta %}<!-- block meta  -->{% endblock %}
+
+    <link rel="icon" href="static/img/healthcare_cloud.jpg">
+
+    <title>{% block title %} ? {% endblock %} - 天翼医疗健康平台</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/echartsHome.css" rel="stylesheet">
+    <link href="/static/css/docs.css" rel="stylesheet">
+    <link href="/static/css/github.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+      {% block beforehead %}<!-- before head  -->{% endblock %}
+  </head>
+
+  <body>
+<a class="sr-only" href="">Skip to main content</a>
+    <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+	  <span class="sr-only">Toggle navigation</span>
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	  </button>
+      <a href="/sales/home" class="navbar-brand">销售门户</a> </div>
+       <nav class="collapse navbar-collapse " >
+
+      <ul class="nav navbar-nav">
+
+		<li ><a href="/sales/orders">我的订单</a></li>
+
+		<li ><a href="/sales/products">我的产品</a></li>
+		<li ><a href="/sales/packages">我的营销包</a></li>
+		<li ><a href="/sales/customors">我的客户</a></li>
+		  <li ><a href="/sales/messages">我的消息</a></li>
+
+
+      </ul>
+          {% if __user__ %}
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown" >
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">中国电信医疗(上海)基地 <span class="caret"></span></a>
+
+          <ul class="dropdown-menu">
+            <li><a href="signout">登出</a></li>
+          </ul>
+        </li>
+
+
+
+      </ul>
+
+      {% if __user__.admin==1 %}
+      {% endif %}
+      {% else %}
+      {% endif %}
+    </nav>
+  </div>
+</header>
+
+
+
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- IrE10 viewport hack for Surface/desktop Windows 8 bug -->
+
+
+    <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="/static/js/holder.min.js"></script>
+    <script src="/static/js/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/static/js/application.js"></script>
+
+<script type="text/javascript">
+{% block script %}
+{% endblock %}
+</script>
+</body>
+</html>

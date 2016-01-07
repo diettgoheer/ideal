@@ -1,0 +1,164 @@
+{% extends '__salesBase__.html' %}
+
+{% block title %}我的订单 · 销售门户{% endblock %}
+
+{% block beforehead %}
+
+<script>
+</script>
+
+{% endblock %}
+
+{% block content %}
+<div class="container bs-docs-container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="bs-sidebar hidden-print affix-top" role="complementary">
+        <ul id="nav" class="nav bs-sidenav" >
+		 <li  class="active"> <a  href="#root">概况</a>
+		  <li > <a  href="#t1">本月</a>
+          <li > <a  href="#rmyy">2015年8月</a>
+
+
+          </li>
+          <li > <a href="#chyy">2015年7月</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-9" role="main" id ="list">
+      <!-- Getting started
+
+  ================================================== -->
+    <div class="bs-docs-section">
+        <div class="page-header">
+          <h1 id="root"><a href="baseDetail.html">概况</a></h1>
+        </div>
+
+	   <div id="main" class="main"></div>
+
+
+
+      </div>
+
+      <div class="bs-docs-section">
+        <div class="page-header">
+          <h1 id="t1"><a href="baseCustomors.html#rmyy">本月</a></h1>
+        </div>
+		 <h2 ><a href="baseCustomors.html#rmyy">上海市第一人民医院</a></h1>
+		<h3 id = "test">订单</h3>
+	<table class="table">
+
+      <tbody><tr><td>服务名称</td><td id="aa">影像云尊享包</td></tr>
+      <tr><td>生效时间</td><td>2016-12-12 12:00</td></tr>
+	  <tr><td>有效期至</td><td>2016-12-12 12:00</td></tr>
+
+   </tbody></table>
+
+
+
+      </div>
+      <!-- File structure
+  ================================================== -->
+		<div class="bs-docs-section">
+        <div class="page-header">
+          <h1 id="t2"><a href="#"> 2015年8月</a></h1>
+        </div>
+		<h2 id="chyy"><a href="baseCustomors.html#chyy"> 上海市长海医院</a></h1>
+       <h3>订单</h3>
+	<table class="table">
+
+      <tbody><tr><td>服务名称</td><td id="aa">影像云标准包</td></tr>
+      <tr><td>生效时间</td><td>2016-12-12 12:00</td></tr>
+	  <tr><td>有效期至</td><td>2016-12-12 12:00</td></tr>
+
+   </tbody></table>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+// 基于准备好的dom，初始化echarts图表
+     var myChart = echarts.init(document.getElementById('main'));
+
+     var option = {
+ title : {
+     text: '上周销售情况',
+     subtext: ''
+ },
+ tooltip : {
+     trigger: 'axis'
+ },
+ legend: {
+x:'right',
+orient: 'vertical',
+     data:['订单总额','新增订单数额']
+ },
+
+ calculable : true,
+ xAxis : [
+     {
+         type : 'category',
+         boundaryGap : false,
+         data : ['周一','周二','周三','周四','周五','周六','周日']
+     }
+ ],
+ yAxis : [
+     {
+         type : 'value',
+         axisLabel : {
+             formatter: '{value}万元 '
+         }
+     }
+ ],
+ series : [
+     {
+         name:'订单总额',
+   smooth:true,
+         type:'line',
+   itemStyle: {normal: {areaStyle: {type: 'default'}}},
+         data:[300, 300, 300, 450, 450, 450, 580],
+         markPoint : {
+             data : [
+                 {type : 'max', name: '最大值'},
+                 {type : 'min', name: '最小值'}
+             ]
+         },
+         markLine : {
+             data : [
+                 {type : 'average', name: '平均值'}
+             ]
+         }
+     },
+     {
+         name:'新增订单数额',
+         type:'line',
+    smooth:true,
+     itemStyle: {normal: {areaStyle: {type: 'default'}}},
+         data:[0, 0, 0, 150, 0, 0, 130],
+         markPoint : {
+             data : [
+                 {name : '周最高', type:'max'}
+             ]
+         },
+         markLine : {
+             data : [
+                 {type : 'average', name : '平均值'}
+             ]
+         }
+     }
+ ]
+};
+
+
+     // 为echarts对象加载数据
+     myChart.setOption(option);
+{% endblock %}

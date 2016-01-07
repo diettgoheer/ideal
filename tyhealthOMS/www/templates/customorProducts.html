@@ -1,0 +1,400 @@
+{% extends '__customorBase__.html' %}
+
+{% block title %}我的产品 · 客户门户{% endblock %}
+
+{% block beforehead %}
+
+<script>
+</script>
+
+{% endblock %}
+
+{% block content %}
+<div class="container bs-docs-container" id="content">
+
+
+    <p class="lead">医疗云</p>
+    <div id="ca1" class="main" ></div>
+
+    <p class="lead">我的应用</p>
+    <div id="cb1" class="main" ></div>
+
+    <div id="cb2" class="main" ></div>
+
+    <div id="cb3" class="main" ></div>
+
+    <p class="lead">我的用户</p>
+    <div id="cc1" class="main" ></div>
+
+</div>
+
+
+
+{% endblock %}
+
+{% block script %}
+
+init();
+function init(){
+initChartA1();
+initChartB1();
+initChartB2();
+initChartB3();
+initChartC1();
+}
+function initChartA1(){
+  var myChart = echarts.init(document.getElementById('ca1'));
+  var option = {
+title : {
+  text: '我的存储使用情况',
+  subtext: ''
+},
+tooltip : {
+  trigger: 'axis'
+},
+legend: {
+x:'right',
+orient: 'vertical',
+  data:['已使用量','可使用量']
+},
+
+calculable : true,
+xAxis : [
+  {
+      type : 'category',
+      boundaryGap : false,
+      data : ['7月','8月','9月','10月','11月','上月','本月']
+  }
+],
+yAxis : [
+  {
+      type : 'value',
+      axisLabel : {
+          formatter: '{value}T '
+      }
+  }
+],
+series : [
+  {
+      name:'已使用量',
+smooth:true,
+      type:'line',
+itemStyle: {normal: {areaStyle: {type: 'default'}}},
+      data:[30.203,  31.338, 32.535, 33.821, 35.212, 36.428,37.724],
+      markPoint : {
+          data : [
+              {type : 'max', name: '最大值'},
+              {type : 'min', name: '最小值'}
+          ]
+      },
+      markLine : {
+          data : [
+              {type : 'average', name: '平均值'}
+          ]
+      }
+  },
+  {
+      name:'可使用量',
+      type:'line',
+ smooth:true,
+  itemStyle: {normal: {areaStyle: {type: 'default'}}},
+      data:[50, 50 , 50, 50, 50, 50, 70],
+      markLine : {
+          data : [
+              {type : 'average', name : '平均值'}
+          ]
+      }
+  }
+]
+};
+
+
+  myChart.setOption(option);
+}
+
+function initChartB1(){
+  var myChart = echarts.init(document.getElementById('cb1'));
+  var option = {
+title : {
+  text: 'PACS使用情况',
+  subtext: ''
+},
+tooltip : {
+  trigger: 'axis'
+},
+legend: {
+x:'right',
+orient: 'vertical',
+  data:['医生数量','报告数量']
+},
+
+calculable : true,
+xAxis : [
+  {
+      type : 'category',
+      boundaryGap : false,
+      data : ['7月','8月','9月','10月','11月','上月','本月']
+  }
+],
+yAxis : [
+  {
+      type : 'value',
+      axisLabel : {
+          formatter: '{value} '
+      }
+  }
+],
+series : [
+{
+    name:'医生数量',
+    type:'line',
+smooth:true,
+itemStyle: {normal: {areaStyle: {type: 'default'}}},
+    data:[12, 12 , 13, 13, 13, 13, 13],
+    markLine : {
+        data : [
+            {type : 'average', name : '平均值'}
+        ]
+    }
+},
+  {
+      name:'报告数量',
+smooth:true,
+      type:'line',
+itemStyle: {normal: {areaStyle: {type: 'default'}}},
+      data:[324, 346, 351, 371, 361, 383,377],
+      markPoint : {
+          data : [
+              {type : 'max', name: '最大值'},
+              {type : 'min', name: '最小值'}
+          ]
+      },
+      markLine : {
+          data : [
+              {type : 'average', name: '平均值'}
+          ]
+      }
+  }
+
+]
+};
+
+  myChart.setOption(option);
+}
+function initChartB2(){
+  var myChart = echarts.init(document.getElementById('cb2'));
+  var option = {
+title : {
+  text: '移动影像使用情况',
+  subtext: ''
+},
+tooltip : {
+  trigger: 'axis'
+},
+legend: {
+x:'right',
+orient: 'vertical',
+  data:['医生数量','报告数量']
+},
+
+calculable : true,
+xAxis : [
+  {
+      type : 'category',
+      boundaryGap : false,
+      data : ['7月','8月','9月','10月','11月','上月','本月']
+  }
+],
+yAxis : [
+  {
+      type : 'value',
+      axisLabel : {
+          formatter: '{value} '
+      }
+  }
+],
+series : [
+{
+    name:'医生数量',
+    type:'line',
+smooth:true,
+itemStyle: {normal: {areaStyle: {type: 'default'}}},
+    data:[12, 12 , 13, 13, 13, 13, 13],
+    markLine : {
+        data : [
+            {type : 'average', name : '平均值'}
+        ]
+    }
+},
+  {
+      name:'报告数量',
+smooth:true,
+      type:'line',
+itemStyle: {normal: {areaStyle: {type: 'default'}}},
+      data:[324, 346, 351, 371, 361, 383,377],
+      markPoint : {
+          data : [
+              {type : 'max', name: '最大值'},
+              {type : 'min', name: '最小值'}
+          ]
+      },
+      markLine : {
+          data : [
+              {type : 'average', name: '平均值'}
+          ]
+      }
+  }
+
+]
+};
+
+
+
+  myChart.setOption(option);
+}
+
+function initChartB3(){
+  var myChart = echarts.init(document.getElementById('cb3'));
+  var option = {
+title : {
+  text: '远程会诊使用情况',
+  subtext: ''
+},
+tooltip : {
+  trigger: 'axis'
+},
+legend: {
+x:'right',
+orient: 'vertical',
+  data:['会诊数量','医生数量']
+},
+
+calculable : true,
+xAxis : [
+  {
+      type : 'category',
+      boundaryGap : false,
+      data : ['7月','8月','9月','10月','11月','上月','本月']
+  }
+],
+yAxis : [
+  {
+      type : 'value',
+      axisLabel : {
+          formatter: '{value} '
+      }
+  }
+],
+series : [
+{
+    name:'会诊数量',
+    type:'line',
+smooth:true,
+itemStyle: {normal: {areaStyle: {type: 'default'}}},
+    data:[5, 8 , 12, 13, 7, 11, 3],
+    markLine : {
+        data : [
+            {type : 'average', name : '平均值'}
+        ]
+    }
+},
+  {
+      name:'医生数量',
+smooth:true,
+      type:'line',
+itemStyle: {normal: {areaStyle: {type: 'default'}}},
+      data:[15, 17, 18, 20, 16, 18,5],
+      markPoint : {
+          data : [
+              {type : 'max', name: '最大值'},
+              {type : 'min', name: '最小值'}
+          ]
+      },
+      markLine : {
+          data : [
+              {type : 'average', name: '平均值'}
+          ]
+      }
+  }
+
+]
+};
+
+
+
+  myChart.setOption(option);
+}
+
+function initChartC1(){
+  var myChart = echarts.init(document.getElementById('cc1'));
+  var option = {
+title : {
+  text: '用户历史变化',
+  subtext: ''
+},
+tooltip : {
+  trigger: 'axis'
+},
+legend: {
+x:'right',
+orient: 'vertical',
+  data:['活跃用户数','注册用户数']
+},
+
+calculable : true,
+xAxis : [
+  {
+      type : 'category',
+      boundaryGap : false,
+      data : ['7月','8月','9月','10月','11月','上月','本月']
+  }
+],
+yAxis : [
+  {
+      type : 'value',
+      axisLabel : {
+          formatter: '{value} '
+      }
+  }
+],
+series : [
+{
+    name:'活跃用户数',
+    type:'line',
+smooth:true,
+itemStyle: {normal: {areaStyle: {type: 'default'}}},
+    data:[18, 24 , 31, 32, 33, 33, 34],
+    markLine : {
+        data : [
+            {type : 'average', name : '平均值'}
+        ]
+    }
+},
+  {
+      name:'注册用户数',
+smooth:true,
+      type:'line',
+itemStyle: {normal: {areaStyle: {type: 'default'}}},
+      data:[18, 25, 33, 35, 36, 36,42],
+      markPoint : {
+          data : [
+              {type : 'max', name: '最大值'},
+              {type : 'min', name: '最小值'}
+          ]
+      },
+      markLine : {
+          data : [
+              {type : 'average', name: '平均值'}
+          ]
+      }
+  }
+
+]
+};
+
+
+
+  myChart.setOption(option);
+}
+
+{% endblock %}

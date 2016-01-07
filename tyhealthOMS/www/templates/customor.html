@@ -1,0 +1,46 @@
+{% extends '__customorBase__.html' %}
+
+{% block title %}我 · 客户门户{% endblock %}
+
+{% block beforehead %}
+
+<script>
+</script>
+
+{% endblock %}
+
+{% block content %}
+<div class="bs-header" id="content">
+  <div id="card" class="container">
+
+
+  </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block script %}
+var mData = {name:"余华",post:"",address:"上海市海宁路100号",enterprise:"上海市第一人民医院",contact:"13848591803"};
+
+var card = document.getElementById("card");
+init();
+function init(){
+	var h = document.createElement("h1");
+	var p1 = document.createElement("p");
+	var p2 = document.createElement("p");
+	var p3 = document.createElement("p");
+	h.innerHTML = mData.enterprise;
+	p1.innerHTML = mData.address;
+	p2.innerHTML = mData.name;
+	p3.innerHTML = mData.contact;
+	card.appendChild(h);
+	card.appendChild(p1);
+	card.appendChild(p2);
+	card.appendChild(p3);
+
+
+}
+
+{% endblock %}

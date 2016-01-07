@@ -1,0 +1,182 @@
+{% extends '__salesBase__.html' %}
+
+{% block title %}我的营销包 · 销售门户{% endblock %}
+
+{% block beforehead %}
+
+<script>
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container bs-docs-container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="bs-sidebar hidden-print affix-top" role="complementary">
+        <ul id="nav" class="nav bs-sidenav" >
+		 <li  class="active"> <a  href="#root">概况</a>
+          <li > <a  href="#c1">影像云试用包</a>
+
+
+          </li>
+          <li > <a href="#c2">影像云标准包</a>
+          </li>
+		   <li > <a href="#c3">影像云尊享包</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-9" role="main" id ="list">
+      <!-- Getting started
+
+  ================================================== -->
+    <div class="bs-docs-section">
+        <div class="page-header">
+          <h1 id="root"><a href="baseDetail.html">概况</a></h1>
+        </div>
+
+	   <div id="main" class="main"></div>
+
+
+
+      </div>
+
+      <div class="bs-docs-section">
+        <div class="page-header">
+          <h1 id="c1"><a href="baseDetail.html">影像云试用包</a></h1>
+        </div>
+		<h3 id = "test">客户</h3>
+	<table class="table">
+
+      <tbody><tr><td>服务名称</td><td id="aa">影像云100T</td></tr>
+      <tr><td>生效时间</td><td>2016-12-12 12:00</td></tr>
+	  <tr><td>有效期至</td><td>2016-12-12 12:00</td></tr>
+
+   </tbody></table>
+		<h3 >产品</h3>
+      <h4><a href="baseProducts.html#rmyy">影像云归档</a></h4>
+	     <h4><a href="baseProducts.html#chyy">影像云会诊</a></h4>
+
+
+      </div>
+      <!-- File structure
+  ================================================== -->
+		<div class="bs-docs-section">
+        <div class="page-header">
+          <h1 id="c2"><a href="baseDetail.html">影像云标准包</a></h1>
+        </div>
+       <h3>订单</h3>
+	<table class="table">
+
+      <tbody><tr><td>服务名称</td><td id="aa">影像云100T</td></tr>
+      <tr><td>生效时间</td><td>2016-12-12 12:00</td></tr>
+	  <tr><td>有效期至</td><td>2016-12-12 12:00</td></tr>
+
+   </tbody></table>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+var myChart = echarts.init(document.getElementById('main'));
+
+     var option = {
+ title : {
+     text: '上周销售情况',
+     subtext: ''
+ },
+ tooltip : {
+     trigger: 'axis'
+ },
+ legend: {
+x:'right',
+orient: 'vertical',
+     data:['影像云试用包','影像云标准包','影像云尊享包']
+ },
+
+ calculable : true,
+ xAxis : [
+     {
+         type : 'category',
+         boundaryGap : false,
+         data : ['周一','周二','周三','周四','周五','周六','周日']
+     }
+ ],
+ yAxis : [
+     {
+         type : 'value',
+         axisLabel : {
+             formatter: '{value} '
+         }
+     }
+ ],
+ series : [
+     {
+         name:'影像云试用包',
+   smooth:true,
+         type:'line',
+   itemStyle: {normal: {areaStyle: {type: 'default'}}},
+         data:[20, 32, 40, 45, 47, 47, 47],
+         markPoint : {
+             data : [
+                 {type : 'max', name: '最大值'},
+                 {type : 'min', name: '最小值'}
+             ]
+         },
+         markLine : {
+             data : [
+                 {type : 'average', name: '平均值'}
+             ]
+         }
+     },
+     {
+         name:'影像云标准包',
+         type:'line',
+    smooth:true,
+     itemStyle: {normal: {areaStyle: {type: 'default'}}},
+         data:[4, 4, 4, 5, 5, 5, 6],
+         markPoint : {
+             data : [
+                 {name : '周最低', type:'max'}
+             ]
+         },
+         markLine : {
+             data : [
+                 {type : 'average', name : '平均值'}
+             ]
+         }
+     },
+     {
+         name:'影像云尊享包',
+         type:'line',
+    smooth:true,
+     itemStyle: {normal: {areaStyle: {type: 'default'}}},
+         data:[1, 1, 1, 2, 2, 2, 3],
+         markPoint : {
+             data : [
+                 {name : '周最低', type:'max'}
+             ]
+         },
+         markLine : {
+             data : [
+                 {type : 'average', name : '平均值'}
+             ]
+         }
+     }
+ ]
+};
+
+
+     // 为echarts对象加载数据
+     myChart.setOption(option);
+{% endblock %}
