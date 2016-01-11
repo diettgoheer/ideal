@@ -1,6 +1,6 @@
 {% extends '__customorBase__.html' %}
 
-{% block title %}我的账单 · 客户门户{% endblock %}
+{% block title %}我的订单 · 客户门户{% endblock %}
 
 {% block beforehead %}
 
@@ -16,10 +16,9 @@
       <div class="bs-sidebar hidden-print affix-top" role="complementary">
         <ul id="nav" class="nav bs-sidenav" >
 		 <li  class="active"> <a  href="#root">概况</a>
-       {% for bill in bills %}
-      <li > <a  href="#{{bill.id}}">{{bill.create_time.strftime('%Y')}}年{{bill.create_time.strftime('%m')}}月</a>
+       {% for order in orders %}
+		  <li > <a  href="#{{order.id}}">{{order.opening_time.strftime('%Y')}}年{{order.opening_time.strftime('%m')}}月</a>
        {% endfor %}
-
         </ul>
       </div>
     </div>
@@ -37,19 +36,21 @@
 
 
       </div>
-{% for bill in bills %}
+{% for order in orders %}
       <div class="bs-docs-section">
         <div class="page-header">
-          <h1 id="{{bill.id}}"><a href="baseCustomors.html#rmyy">{{bill.create_time.strftime('%Y')}}年{{bill.create_time.strftime('%m')}}月账单</a></h1>
+          <h1 id="{{order.id}}"><a href="baseCustomors.html#rmyy">{{order.opening_time.strftime('%Y')}}年{{order.opening_time.strftime('%m')}}月</a></h1>
         </div>
-		 <h2 ><a href="baseCustomors.html#rmyy">{{bill.customer_name}}</a></h1>
+		 <h2 ><a href="baseCustomors.html#rmyy">{{order.customer_name}}</a></h1>
+		<h3 id = "test">订单类型：{{order.order_type}}</h3>
 	<table class="table">
       <tbody>
-        <tr><td>服务名称</td><td>详细</td><td>价格(元)</td></tr>
-        {% for service in bill.services %}
-        <tr><td>{{service}}</td></tr>
+        {% for service in order.services %}
+        <tr><td>服务名称：</td><td id="">{{service}}</td></tr>
         {% endfor %}
-        <tr><td>合计</td><td></td><td>44800</td></tr>
+      <tr><td>生效时间：</td><td>2016-1-2 12:00</td></tr>
+	  <tr><td>有效期至：</td><td>2016-1-1 12:00</td></tr>
+
    </tbody></table>
       </div>
       {% endfor %}
@@ -60,6 +61,7 @@
   </div>
 </div>
 
+
 {% endblock %}
 
 {% block script %}
@@ -68,7 +70,7 @@
 
      var option = {
  title : {
-     text: '我的费用情况',
+     text: '上半年销售情况',
      subtext: ''
  },
  tooltip : {
@@ -77,7 +79,7 @@
  legend: {
 x:'right',
 orient: 'vertical',
-     data:['应付费用','实付费用']
+     data:['订单总额']
  },
 
  calculable : true,
@@ -85,47 +87,24 @@ orient: 'vertical',
      {
          type : 'category',
          boundaryGap : false,
-         data : ['7月','8月','9月','10月','11月','上月','本月']
+         data : ['2015/07','2015/08','2015/09','2015/10','2015/11','2015/12','2016/01']
      }
  ],
  yAxis : [
      {
          type : 'value',
          axisLabel : {
-             formatter: '{value}元 '
+             formatter: '{value}万元 '
          }
      }
  ],
  series : [
      {
-         name:'应付费用',
+         name:'订单总额',
    smooth:true,
          type:'line',
    itemStyle: {normal: {areaStyle: {type: 'default'}}},
-         data:[42800, 42800, 42800, 42800, 42800, 42800, 42800],
-         markPoint : {
-             data : [
-                 {type : 'max', name: '最大值'},
-                 {type : 'min', name: '最小值'}
-             ]
-         },
-         markLine : {
-             data : [
-                 {type : 'average', name: '平均值'}
-             ]
-         }
-     },
-     {
-         name:'实付费用',
-         type:'line',
-    smooth:true,
-     itemStyle: {normal: {areaStyle: {type: 'default'}}},
-         data:[42800, 42800, 42800, 42800, 42800, 42800, 42800],
-         markLine : {
-             data : [
-                 {type : 'average', name : '平均值'}
-             ]
-         }
+         data:[300, 320, 330, 450, 460, 480, 580]
      }
  ]
 };

@@ -18,7 +18,7 @@ from apis import Page, APIValueError, APIResourceNotFoundError
 from models import User, Comment, Blog, next_id,Service,Hospital,HospitalService,Order,Bills
 from config import configs
 
-COOKIE_NAME = 'tyhealth'
+COOKIE_NAME = 'awesession'
 _COOKIE_KEY = configs.session.secret
 
 def check_admin(request):
@@ -91,107 +91,84 @@ def cookie2user(cookie_str):
 #         'blogs': blogs
 #     }
 @get('/')
-def index (request):
-
+def index (*,page='1'):
     return{
         '__template__':'salesHome.html',
     }
 @get('/test')
 def test ():
-    r = web.HTTPFound('/sales/home')
-    return r
-
+    return{
+        '__template__':'test.html',
+    }
 @get('/salesHome')
-def salesIndex ():
-    return 'redirect:/sales/home'
-
-@get('/sales')
-def sales ():
-    return 'redirect:/sales/home'
-
-@get('/customorHome')
-def customorIndex ():
-    return 'redirect:/customor/home'
-
-@get('/customor')
-def customor ():
-    return 'redirect:/customor/home'
-
-@get('/sales/home')
 def salesHome ():
     return{
         '__template__':'salesHome.html',
     }
 
-@get('/sales/customors')
+@get('/salesCustomors')
 def salesCustomors ():
     return{
         '__template__':'salesCustomors.html',
     }
 
-@get('/sales/messages')
+@get('/salesMessages')
 def salesMessages ():
     return{
         '__template__':'salesMessages.html',
     }
 
-@get('/sales/orders')
+@get('/salesOrders')
 def salesOrders ():
     return{
         '__template__':'salesOrders.html',
     }
 
-@get('/sales/packages')
+@get('/salesPackages')
 def salesPackages ():
     return{
         '__template__':'salesPackages.html',
     }
 
-@get('/sales/products')
+@get('/salesProducts')
 def salesProducts ():
     return{
         '__template__':'salesProducts.html',
     }
 
-@get('/sales/card')
-def salesCard ():
+@get('/sales')
+def sales ():
     return{
         '__template__':'sales.html',
     }
 
-
-
-@get('/customor/card')
-def customorCard ():
+@get('/customor')
+def customor ():
     return{
         '__template__':'customor.html',
     }
 
-
-@get('/customor/bills')
-def customorBills ():
-    enterprise_id=1;
+@get('/customorBills/{enterprise_id}')
+def customorBills (enterprise_id):
     bills = yield from Bills.findAll('enterprise_id=?',enterprise_id)
     billServices=[]
     for bill in bills:
         bill.services = bill.service_name.split(';')
         billServices= bill.service_name.split(';')
-        print(bill.services)
         print(billServices)
     return{
         '__template__':'customorBills.html',
         'bills':bills
     }
 
-@get('/customor/home')
+@get('/customorHome')
 def customorHome ():
     return{
         '__template__':'customorHome.html',
     }
 
-@get('/customor/orders')
-def customorOrders ():
-    enterprise_id=1;
+@get('/customorOrders/{enterprise_id}')
+def customorOrders (enterprise_id):
     orders = yield from Order.findAll('enterprise_id=?',enterprise_id)
 
     for order in enumerate(orders):
@@ -203,13 +180,7 @@ def customorOrders ():
         'orders': orders
     }
 
-@get('/customor/messages')
-def customorMessages ():
-    return{
-        '__template__':'customorMessages.html',
-    }
-
-@get('/customor/products')
+@get('/customorProducts')
 def customorProducts ():
     return{
         '__template__':'customorProducts.html',
@@ -243,27 +214,11 @@ def register():
     return {
         '__template__': 'register.html'
     }
-@get('/register2')
-def register2():
-    return {
-        '__template__': 'register2.html'
-    }
+
 @get('/signin')
 def signin():
     return {
         '__template__': 'signin.html'
-    }
-
-@get('/salesSignin')
-def salesSignin():
-    return {
-        '__template__': 'salesSignin.html'
-    }
-
-@get('/customorSignin')
-def customorSignin():
-    return {
-        '__template__': 'customorSignin.html'
     }
 
 @post('/api/authenticate')
@@ -284,25 +239,15 @@ def authenticate(*, email, passwd):
     if user.passwd != sha1.hexdigest():
         raise APIValueError('passwd', 'Invalid password.')
     # authenticate ok, set cookie:
-
     r = web.Response()
     r.set_cookie(COOKIE_NAME, user2cookie(user, 86400), max_age=86400, httponly=True)
     user.passwd = '******'
     r.content_type = 'application/json'
     r.body = json.dumps(user, ensure_ascii=False).encode('utf-8')
-
     return r
 
-@get('/customor/signout')
-def customor_signout(request):
-    referer = request.headers.get('Referer')
-    r = web.HTTPFound(referer or '/')
-    r.set_cookie(COOKIE_NAME, '-deleted-', max_age=0, httponly=True)
-    logging.info('user signed out.')
-    return r
-
-@get('/sales/signout')
-def sales_signout(request):
+@get('/signout')
+def signout(request):
     referer = request.headers.get('Referer')
     r = web.HTTPFound(referer or '/')
     r.set_cookie(COOKIE_NAME, '-deleted-', max_age=0, httponly=True)
@@ -404,14 +349,14 @@ def api_register_user(*, email, name, passwd):
         raise APIValueError('name')
     if not email or not _RE_EMAIL.match(email):
         raise APIValueError('email')
-    if not passwd:
+    if not passwd or not _RE_SHA1.match(passwd):
         raise APIValueError('passwd')
     users = yield from User.findAll('email=?', [email])
     if len(users) > 0:
         raise APIError('register:failed', 'email', 'Email is already in use.')
     uid = next_id()
     sha1_passwd = '%s:%s' % (uid, passwd)
-    user = User(id=uid, name=name.strip(), email=email, passwd=hashlib.sha1(sha1_passwd.encode('utf-8')).hexdigest(), image='http://www.gravatar.com/avatar/%s?d=mm&s=120' % hashlib.md5(email.encode('utf-8')).hexdigest())
+    user = User(id=uid, name=name.strip(), email=email, passwd=hashlib.sha1(sha1_passwd.encode('utf-8')).hexdigest(), image='http://www.gravatar.com/avatar/%s?d=mm&s=120')
     yield from user.save()
     # make session cookie:
     r = web.Response()

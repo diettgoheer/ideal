@@ -60,77 +60,78 @@
   </div>
 </div>
 
+
 {% endblock %}
 
 {% block script %}
 // 基于准备好的dom，初始化echarts图表
-     var myChart = echarts.init(document.getElementById('main'));
+var myChart = echarts.init(document.getElementById('main'));
 
-     var option = {
- title : {
-     text: '我的费用情况',
-     subtext: ''
- },
- tooltip : {
-     trigger: 'axis'
- },
- legend: {
+var option = {
+title : {
+text: '我的费用情况',
+subtext: ''
+},
+tooltip : {
+trigger: 'axis'
+},
+legend: {
 x:'right',
 orient: 'vertical',
-     data:['应付费用','实付费用']
- },
+data:['应付费用','实付费用']
+},
 
- calculable : true,
- xAxis : [
-     {
-         type : 'category',
-         boundaryGap : false,
-         data : ['7月','8月','9月','10月','11月','上月','本月']
-     }
- ],
- yAxis : [
-     {
-         type : 'value',
-         axisLabel : {
-             formatter: '{value}元 '
-         }
-     }
- ],
- series : [
-     {
-         name:'应付费用',
-   smooth:true,
-         type:'line',
-   itemStyle: {normal: {areaStyle: {type: 'default'}}},
-         data:[42800, 42800, 42800, 42800, 42800, 42800, 42800],
-         markPoint : {
-             data : [
-                 {type : 'max', name: '最大值'},
-                 {type : 'min', name: '最小值'}
-             ]
-         },
-         markLine : {
-             data : [
-                 {type : 'average', name: '平均值'}
-             ]
-         }
-     },
-     {
-         name:'实付费用',
-         type:'line',
-    smooth:true,
-     itemStyle: {normal: {areaStyle: {type: 'default'}}},
-         data:[42800, 42800, 42800, 42800, 42800, 42800, 42800],
-         markLine : {
-             data : [
-                 {type : 'average', name : '平均值'}
-             ]
-         }
-     }
- ]
+calculable : true,
+xAxis : [
+{
+    type : 'category',
+    boundaryGap : false,
+    data : ['7月','8月','9月','10月','11月','上月','本月']
+}
+],
+yAxis : [
+{
+    type : 'value',
+    axisLabel : {
+        formatter: '{value}元 '
+    }
+}
+],
+series : [
+{
+    name:'应付费用',
+smooth:true,
+    type:'line',
+itemStyle: {normal: {areaStyle: {type: 'default'}}},
+    data:[44800, 44800, 44800, 44800, 44800, 44800, 44800],
+    markPoint : {
+        data : [
+            {type : 'max', name: '最大值'},
+            {type : 'min', name: '最小值'}
+        ]
+    },
+    markLine : {
+        data : [
+            {type : 'average', name: '平均值'}
+        ]
+    }
+},
+{
+    name:'实付费用',
+    type:'line',
+smooth:true,
+itemStyle: {normal: {areaStyle: {type: 'default'}}},
+    data:[44800, 44800, 44800, 44800, 44800, 44800, 44800],
+    markLine : {
+        data : [
+            {type : 'average', name : '平均值'}
+        ]
+    }
+}
+]
 };
 
 
-     // 为echarts对象加载数据
-     myChart.setOption(option);
+// 为echarts对象加载数据
+myChart.setOption(option);
 {% endblock %}
